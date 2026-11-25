@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" width="320" height="100">
+  <rect width="320" height="100" rx="12" fill="#FFFFFF"/>
+  <!-- Coal / Energy Emblem -->
+  <g transform="translate(15, 12)">
+    <circle cx="38" cy="38" r="36" fill="#1C1917" stroke="#D97706" stroke-width="3"/>
+    <!-- Flame / Coal facets -->
+    <path d="M38 14 C48 26 56 36 56 48 C56 58 48 64 38 64 C28 64 20 58 20 48 C20 36 28 26 38 14 Z" fill="#F59E0B"/>
+    <path d="M38 28 C44 36 48 44 48 50 C48 56 43 60 38 60 C33 60 28 56 28 50 C28 44 32 36 38 28 Z" fill="#EF4444"/>
+    <circle cx="38" cy="50" r="5" fill="#FDE047"/>
+  </g>
+  <!-- Text -->
+  <text x="96" y="38" font-family="Inter, -apple-system, sans-serif" font-size="20" font-weight="900" fill="#1C1917" letter-spacing="1">BCCL</text>
+  <text x="96" y="56" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#44403C">Bharat Coking Coal Limited</text>
+  <text x="96" y="74" font-family="Inter, -apple-system, sans-serif" font-size="9.5" font-weight="600" fill="#D97706">A Subsidiary of Coal India Limited</text>
+</svg>

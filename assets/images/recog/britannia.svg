@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" width="280" height="80">
+  <defs>
+    <linearGradient id="britGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#BE123C"/>
+    </linearGradient>
+  </defs>
+  <!-- Oval badge -->
+  <rect x="10" y="16" width="260" height="48" rx="24" fill="url(#britGrad)" stroke="#FFE4E6" stroke-width="2"/>
+  <text x="140" y="46" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">BRITANNIA</text>
+  <text x="140" y="58" font-family="'Plus Jakarta Sans', sans-serif" font-size="7.5" font-weight="700" fill="#FEE2E2" text-anchor="middle" letter-spacing="1.5">INDUSTRIES LIMITED</text>
+</svg>

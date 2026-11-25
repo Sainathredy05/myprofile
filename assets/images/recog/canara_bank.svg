@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" width="280" height="80">
+  <g transform="translate(10, 14)">
+    <!-- Canara Bank interlocking geometric triangles -->
+    <polygon points="12,48 28,10 44,48" fill="#0080C8" opacity="0.95"/>
+    <polygon points="26,48 42,10 58,48" fill="#FDB813" opacity="0.95"/>
+  </g>
+  <text x="82" y="36" font-family="'Plus Jakarta Sans', sans-serif" font-size="19" font-weight="800" fill="#0080C8" letter-spacing="0.5">Canara Bank</text>
+  <text x="82" y="52" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="700" fill="#D97706">A GOVERNMENT OF INDIA UNDERTAKING</text>
+</svg>

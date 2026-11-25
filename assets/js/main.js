@@ -105,89 +105,44 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(metricSection);
   }
 
-  // Generic Unified Form Submission (Netlify Forms + FormSubmit.co Email Service + Mailto Fallback)
-  async function submitDualIntegratedForm(form, submitBtn, statusEl, defaultMailto) {
-    const originalBtnHtml = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending message...';
-    statusEl.style.display = 'none';
+  // Direct Email & WhatsApp Client Dispatch Handler
+  function handleDirectEmailDispatch(form, statusEl, subject, body, rawTextForWa) {
+    const mailtoUrl = `mailto:sainathreddyakkala@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const waUrl = `https://wa.me/918500163206?text=${encodeURIComponent(rawTextForWa)}`;
 
-    const formData = new FormData(form);
-    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-    let netlifySuccess = false;
-
-    // Try Netlify Forms POST only when deployed on a live host
-    if (!isLocalhost) {
-      try {
-        const urlEncoded = new URLSearchParams(formData).toString();
-        const res = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: urlEncoded
-        });
-        if (res.ok) {
-          netlifySuccess = true;
-        }
-      } catch (e) {
-        // Offline or non-Netlify environment
-      }
-    }
-
-    // If deployed on Vercel or other live domains (not Netlify, not localhost), submit via FormSubmit.co JSON API
-    let externalSuccess = false;
-    if (!netlifySuccess && !isLocalhost) {
-      try {
-        const payload = {};
-        formData.forEach((value, key) => {
-          if (key !== 'bot-field') payload[key] = value;
-        });
-        payload['_subject'] = `[Portfolio] New message from ${payload.name || 'Visitor'}`;
-        payload['_captcha'] = 'false';
-
-        const fsRes = await fetch('https://formsubmit.co/ajax/sainathreddyakkala@gmail.com', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        if (fsRes.ok) {
-          externalSuccess = true;
-        }
-      } catch (err) {
-        console.warn('FormSubmit endpoint error:', err);
-      }
-    }
-
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = originalBtnHtml;
-
+    // Reset form immediately
     form.reset();
-    statusEl.className = 'form-status-alert success';
 
-    if (netlifySuccess || externalSuccess) {
-      statusEl.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 1.25rem; color: #10B981; flex-shrink: 0; margin-top: 2px;"></i>
-        <div>
-          <strong style="color: #065F46;">Message Delivered Successfully!</strong><br>
-          <span style="color: #047857;">Your inquiry has been dispatched directly to Sainath Reddy's personal inbox (sainathreddyakkala@gmail.com). You will receive a response within 24 hours.</span>
-        </div>`;
-      showToast('Message sent successfully!');
-    } else {
-      // Local development or fallback mode
-      statusEl.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 1.25rem; color: #10B981; flex-shrink: 0; margin-top: 2px;"></i>
-        <div>
-          <strong style="color: #065F46;">Inquiry Successfully Prepared!</strong><br>
-          <span style="color: #047857;">Your details have been captured and validated for delivery to <strong>sainathreddyakkala@gmail.com</strong>.</span>
-          <div style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
-            <a href="${defaultMailto}" class="btn btn-sm btn-primary" style="padding: 6px 14px; font-size: 0.82rem;">
-              <i class="fa-solid fa-envelope"></i> Open in Email App
-            </a>
-            <a href="https://wa.me/918500163206" target="_blank" class="btn btn-sm btn-outline-crimson" style="padding: 6px 14px; font-size: 0.82rem;">
-              <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
-            </a>
-          </div>
-        </div>`;
-      showToast('Inquiry ready to send!');
-    }
+    // Show clean in-page action banner
+    statusEl.className = 'form-status-alert success';
+    statusEl.innerHTML = `<i class="fa-solid fa-envelope-circle-check" style="font-size: 1.4rem; color: #059669; flex-shrink: 0; margin-top: 2px;"></i>
+      <div style="flex-grow: 1;">
+        <strong style="color: #065F46; font-size: 0.95rem;">Opening Your Email App...</strong><br>
+        <span style="color: #047857; font-size: 0.86rem; display: block; margin-top: 2px;">
+          Your message has been formatted to send directly to <strong>sainathreddyakkala@gmail.com</strong>.
+        </span>
+        <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+          <a href="${mailtoUrl}" class="btn btn-sm btn-primary" style="padding: 7px 15px; font-size: 0.82rem; text-decoration: none;">
+            <i class="fa-solid fa-paper-plane"></i> Send via Email App / Gmail
+          </a>
+          <a href="${waUrl}" target="_blank" class="btn btn-sm btn-outline-crimson" style="padding: 7px 15px; font-size: 0.82rem; text-decoration: none;">
+            <i class="fa-brands fa-whatsapp"></i> Send via WhatsApp
+          </a>
+          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="navigator.clipboard.writeText(decodeURIComponent('${encodeURIComponent(body)}')); showToast('Email message copied to clipboard!');" style="padding: 7px 15px; font-size: 0.82rem; cursor: pointer;">
+            <i class="fa-solid fa-copy"></i> Copy Text
+          </button>
+        </div>
+      </div>`;
     statusEl.style.display = 'flex';
+
+    showToast('Redirecting to your email client...');
+
+    // Trigger mailto redirect immediately
+    try {
+      window.location.href = mailtoUrl;
+    } catch (e) {
+      console.log('Mail client open:', e);
+    }
   }
 
   // 4. Workshop Request Form Handler
@@ -204,40 +159,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const date = document.getElementById('wfDate')?.value.trim() || 'Tentative';
       const notes = document.getElementById('wfNotes')?.value.trim() || '';
 
-      const subject = encodeURIComponent(`[Workshop Invitation] Request from ${college} - ${type}`);
-      const body = encodeURIComponent(
-        `Dear Sainath Reddy,
+      const subject = `[Workshop Invitation] Request from ${college} - ${type}`;
+      const body = `Dear Sainath Reddy,
 
-` +
-        `We would like to invite you for a session/workshop with our institution.
+We would like to invite you for a session/workshop with our institution.
 
-` +
-        `Institution: ${college}
-` +
-        `Contact Person: ${name}
-` +
-        `Email: ${email}
-` +
-        `Phone: ${phone}
-` +
-        `Format: ${type}
-` +
-        `Proposed Dates: ${date}
-` +
-        `Requirements / Notes: ${notes}
+• Institution / Organization: ${college}
+• Contact Person: ${name}
+• Official Email: ${email}
+• Phone / WhatsApp: ${phone}
+• Engagement Format: ${type}
+• Proposed Dates: ${date}
+• Requirements / Details: ${notes || 'None specified'}
 
-` +
-        `Looking forward to collaborating with you.
-` +
-        `Best regards,
-${name}`
-      );
+Looking forward to collaborating with you.
 
-      const mailtoUrl = `mailto:sainathreddyakkala@gmail.com?subject=${subject}&body=${body}`;
-      const submitBtn = document.getElementById('btnSubmitWorkshop');
+Best regards,
+${name}`;
+
+      const waText = `Hi Sainath, I would like to invite you for a "${type}" at ${college}. My name is ${name} (Email: ${email}, Phone: ${phone}). Proposed dates: ${date}.`;
       const statusEl = document.getElementById('workshopFormStatus');
 
-      submitDualIntegratedForm(workshopForm, submitBtn, statusEl, mailtoUrl);
+      handleDirectEmailDispatch(workshopForm, statusEl, subject, body, waText);
     });
   }
 
@@ -249,32 +192,26 @@ ${name}`
 
       const name = document.getElementById('cfName')?.value.trim() || '';
       const email = document.getElementById('cfEmail')?.value.trim() || '';
-      const subject = document.getElementById('cfSubject')?.value.trim() || '';
+      const subjectInput = document.getElementById('cfSubject')?.value.trim() || 'General Inquiry';
       const message = document.getElementById('cfMessage')?.value.trim() || '';
 
-      const mailSubject = encodeURIComponent(`[Portfolio Inquiry] ${subject} - from ${name}`);
-      const mailBody = encodeURIComponent(
-        `Hi Sainath,
+      const subject = `[Portfolio Inquiry] ${subjectInput} - from ${name}`;
+      const body = `Hi Sainath,
 
-` +
-        `Name: ${name}
-` +
-        `Email: ${email}
+Name: ${name}
+Email: ${email}
+Subject: ${subjectInput}
 
-` +
-        `Subject: ${subject}
-
-` +
-        `Message:
+Message:
 ${message}
-`
-      );
 
-      const mailtoUrl = `mailto:sainathreddyakkala@gmail.com?subject=${mailSubject}&body=${mailBody}`;
-      const submitBtn = document.getElementById('btnSubmitContact');
+Best regards,
+${name}`;
+
+      const waText = `Hi Sainath, regarding "${subjectInput}": ${message} - from ${name} (${email})`;
       const statusEl = document.getElementById('contactFormStatus');
 
-      submitDualIntegratedForm(contactForm, submitBtn, statusEl, mailtoUrl);
+      handleDirectEmailDispatch(contactForm, statusEl, subject, body, waText);
     });
   }
 

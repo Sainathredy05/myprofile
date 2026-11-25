@@ -105,44 +105,35 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(metricSection);
   }
 
-  // Direct Email & WhatsApp Client Dispatch Handler
-  function handleDirectEmailDispatch(form, statusEl, subject, body, rawTextForWa) {
+  // Direct Email & WhatsApp Client Dispatch Handler (Below-Button "Send Via" Selection)
+  function handleDirectEmailDispatch(statusEl, subject, body, rawTextForWa) {
     const mailtoUrl = `mailto:sainathreddyakkala@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     const waUrl = `https://wa.me/918500163206?text=${encodeURIComponent(rawTextForWa)}`;
 
-    // Reset form immediately
-    form.reset();
+    // Render clean "Send Via:" action card below the button
+    statusEl.innerHTML = `
+      <div class="dispatch-header">
+        <span class="dispatch-badge"><i class="fa-solid fa-paper-plane"></i> Send Via:</span>
+        <p class="dispatch-subtext">
+          Your inquiry has been compiled. Please select how you would like to dispatch it to <strong>sainathreddyakkala@gmail.com</strong>:
+        </p>
+      </div>
+      <div class="dispatch-actions">
+        <a href="${mailtoUrl}" class="btn btn-primary dispatch-btn">
+          <i class="fa-solid fa-envelope"></i> Send via Email App / Gmail
+        </a>
+        <a href="${waUrl}" target="_blank" class="btn btn-outline-crimson dispatch-btn">
+          <i class="fa-brands fa-whatsapp"></i> Send via WhatsApp
+        </a>
+        <button type="button" class="btn btn-outline-secondary dispatch-btn" onclick="navigator.clipboard.writeText(decodeURIComponent('${encodeURIComponent(body)}')); showToast('Message text copied to clipboard!');">
+          <i class="fa-solid fa-copy"></i> Copy Text
+        </button>
+      </div>
+    `;
 
-    // Show clean in-page action banner
-    statusEl.className = 'form-status-alert success';
-    statusEl.innerHTML = `<i class="fa-solid fa-envelope-circle-check" style="font-size: 1.4rem; color: #059669; flex-shrink: 0; margin-top: 2px;"></i>
-      <div style="flex-grow: 1;">
-        <strong style="color: #065F46; font-size: 0.95rem;">Opening Your Email App...</strong><br>
-        <span style="color: #047857; font-size: 0.86rem; display: block; margin-top: 2px;">
-          Your message has been formatted to send directly to <strong>sainathreddyakkala@gmail.com</strong>.
-        </span>
-        <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
-          <a href="${mailtoUrl}" class="btn btn-sm btn-primary" style="padding: 7px 15px; font-size: 0.82rem; text-decoration: none;">
-            <i class="fa-solid fa-paper-plane"></i> Send via Email App / Gmail
-          </a>
-          <a href="${waUrl}" target="_blank" class="btn btn-sm btn-outline-crimson" style="padding: 7px 15px; font-size: 0.82rem; text-decoration: none;">
-            <i class="fa-brands fa-whatsapp"></i> Send via WhatsApp
-          </a>
-          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="navigator.clipboard.writeText(decodeURIComponent('${encodeURIComponent(body)}')); showToast('Email message copied to clipboard!');" style="padding: 7px 15px; font-size: 0.82rem; cursor: pointer;">
-            <i class="fa-solid fa-copy"></i> Copy Text
-          </button>
-        </div>
-      </div>`;
-    statusEl.style.display = 'flex';
-
-    showToast('Redirecting to your email client...');
-
-    // Trigger mailto redirect immediately
-    try {
-      window.location.href = mailtoUrl;
-    } catch (e) {
-      console.log('Mail client open:', e);
-    }
+    statusEl.style.display = 'block';
+    statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    showToast('Please select how you would like to send your inquiry.');
   }
 
   // 4. Workshop Request Form Handler
@@ -162,25 +153,35 @@ document.addEventListener('DOMContentLoaded', () => {
       const subject = `[Workshop Invitation] Request from ${college} - ${type}`;
       const body = `Dear Sainath Reddy,
 
-We would like to invite you for a session/workshop with our institution.
+` +
+        `We would like to invite you for a session/workshop with our institution.
 
-• Institution / Organization: ${college}
-• Contact Person: ${name}
-• Official Email: ${email}
-• Phone / WhatsApp: ${phone}
-• Engagement Format: ${type}
-• Proposed Dates: ${date}
-• Requirements / Details: ${notes || 'None specified'}
+` +
+        `• Institution / Organization: ${college}
+` +
+        `• Contact Person: ${name}
+` +
+        `• Official Email: ${email}
+` +
+        `• Phone / WhatsApp: ${phone}
+` +
+        `• Engagement Format: ${type}
+` +
+        `• Proposed Dates: ${date}
+` +
+        `• Requirements / Details: ${notes || 'None specified'}
 
-Looking forward to collaborating with you.
+` +
+        `Looking forward to collaborating with you.
 
-Best regards,
+` +
+        `Best regards,
 ${name}`;
 
       const waText = `Hi Sainath, I would like to invite you for a "${type}" at ${college}. My name is ${name} (Email: ${email}, Phone: ${phone}). Proposed dates: ${date}.`;
       const statusEl = document.getElementById('workshopFormStatus');
 
-      handleDirectEmailDispatch(workshopForm, statusEl, subject, body, waText);
+      handleDirectEmailDispatch(statusEl, subject, body, waText);
     });
   }
 
@@ -198,20 +199,25 @@ ${name}`;
       const subject = `[Portfolio Inquiry] ${subjectInput} - from ${name}`;
       const body = `Hi Sainath,
 
-Name: ${name}
-Email: ${email}
-Subject: ${subjectInput}
+` +
+        `Name: ${name}
+` +
+        `Email: ${email}
+` +
+        `Subject: ${subjectInput}
 
-Message:
+` +
+        `Message:
 ${message}
 
-Best regards,
+` +
+        `Best regards,
 ${name}`;
 
       const waText = `Hi Sainath, regarding "${subjectInput}": ${message} - from ${name} (${email})`;
       const statusEl = document.getElementById('contactFormStatus');
 
-      handleDirectEmailDispatch(contactForm, statusEl, subject, body, waText);
+      handleDirectEmailDispatch(statusEl, subject, body, waText);
     });
   }
 

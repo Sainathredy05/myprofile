@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/css/style.css?v=20261125_02">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261125_03">
 
   <!-- Structured Schema.org Data for Academic & Professional Authority -->
   <script type="application/ld+json">
@@ -1516,8 +1516,7 @@
             <form id="workshopForm" name="workshop-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/#speaking">
               <input type="hidden" name="form-name" value="workshop-inquiry">
               <p style="display:none;"><input name="bot-field"></p>
-              <div id="workshopFormStatus" class="form-status-alert" style="display:none;"></div>
-
+              
               <div class="form-group">
                 <label class="form-label" for="wfName">Your Full Name *</label>
                 <input type="text" id="wfName" name="name" class="form-control" placeholder="Dr. / Prof. / Mr. / Ms. Name" required>
@@ -1564,6 +1563,7 @@
               <button type="submit" id="btnSubmitWorkshop" class="btn btn-primary" style="width: 100%;">
                 <i class="fa-solid fa-paper-plane"></i> Submit Invitation Request
               </button>
+              <div id="workshopFormStatus" class="form-dispatch-card" style="display:none;"></div>
             </form>
           </div>
         </div>
@@ -1793,8 +1793,7 @@
           <form id="generalContactForm" name="contact-message" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/#contact">
             <input type="hidden" name="form-name" value="contact-message">
             <p style="display:none;"><input name="bot-field"></p>
-            <div id="contactFormStatus" class="form-status-alert" style="display:none;"></div>
-
+            
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label" for="cfName">Your Full Name *</label>
@@ -1819,6 +1818,7 @@
             <button type="submit" id="btnSubmitContact" class="btn btn-primary" style="width: 100%;">
               <i class="fa-solid fa-paper-plane"></i> Send Direct Message
             </button>
+            <div id="contactFormStatus" class="form-dispatch-card" style="display:none;"></div>
           </form>
         </div>
       </div>
@@ -1877,6 +1877,6 @@
   </div>
 
   <!-- JavaScript -->
-  <script src="assets/js/main.js?v=20261125_02"></script>
+  <script src="assets/js/main.js?v=20261125_03"></script>
 </body>
 </html>  

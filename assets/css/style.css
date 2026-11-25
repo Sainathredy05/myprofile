@@ -3090,24 +3090,24 @@ html, body {
   }
 
   /* ==========================================================================
-     1. ABOUT ME SECTION: 1-SCREEN COMPACT VIEW FOR 6.7-INCH SCREENS
+     1. ABOUT ME SECTION: COMPLETE AUTHENTIC STORY (TIMELINE HIDDEN ON MOBILE)
      ========================================================================== */
   #about.about-section {
-    padding: 24px 0 20px !important;
+    padding: 28px 0 24px !important;
   }
 
   #about .section-header {
-    margin-bottom: 12px !important;
+    margin-bottom: 16px !important;
   }
 
   #about .section-title {
-    font-size: 1.25rem !important;
+    font-size: 1.3rem !important;
     line-height: 1.3 !important;
-    margin-bottom: 4px !important;
+    margin-bottom: 6px !important;
   }
 
   #about .section-subtitle {
-    font-size: 0.78rem !important;
+    font-size: 0.8rem !important;
     line-height: 1.4 !important;
     margin-bottom: 0 !important;
   }
@@ -3115,11 +3115,11 @@ html, body {
   .about-story-container {
     display: flex !important;
     flex-direction: column !important;
-    gap: 10px !important;
-    margin-top: 10px !important;
+    gap: 14px !important;
+    margin-top: 12px !important;
   }
 
-  /* Hide huge 300px image frame on mobile so about section fits in 1 screen */
+  /* Hide huge 300px image frame on mobile */
   .about-portrait-showcase .about-image-frame {
     display: none !important;
   }
@@ -3129,12 +3129,13 @@ html, body {
     gap: 0 !important;
   }
 
+  /* Distinctive Quote Card */
   .about-quote-card {
-    padding: 10px 14px !important;
+    padding: 12px 14px !important;
     border-radius: var(--radius-md) !important;
     background: #F8FAFC !important;
     border-left: 3px solid var(--iit-crimson) !important;
-    margin-bottom: 0 !important;
+    margin-bottom: 4px !important;
   }
 
   .about-quote-card .quote-mark {
@@ -3143,8 +3144,8 @@ html, body {
   }
 
   .about-quote-card .quote-text {
-    font-size: 0.8rem !important;
-    line-height: 1.4 !important;
+    font-size: 0.82rem !important;
+    line-height: 1.45 !important;
     margin-bottom: 4px !important;
   }
 
@@ -3152,123 +3153,45 @@ html, body {
     font-size: 0.72rem !important;
   }
 
+  /* Display COMPLETE Authentic Story on Mobile (All 3 Paragraphs Fully Visible) */
   .about-human-story {
     margin-top: 4px !important;
   }
 
   .about-human-story .story-chapter-title {
-    display: none !important;
+    display: block !important;
+    font-size: 1.05rem !important;
+    margin-bottom: 8px !important;
+    color: var(--text-primary) !important;
   }
 
-  /* Show punchy first paragraph, hide lengthy secondary paragraphs on mobile */
-  .about-human-story p:nth-of-type(1) {
-    font-size: 0.8rem !important;
-    line-height: 1.4 !important;
-    margin-bottom: 6px !important;
+  .about-human-story p {
+    display: block !important;
+    font-size: 0.86rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 12px !important;
+    color: var(--text-secondary) !important;
   }
 
-  .about-human-story p:nth-of-type(2),
-  .about-human-story p:nth-of-type(3) {
-    display: none !important;
-  }
-
-  /* Symmetrical Full-Width Action Buttons to Avoid Any Text Truncation */
+  /* Symmetrical Full-Width Action Buttons */
   .about-action-buttons {
     display: flex !important;
     flex-direction: column !important;
     gap: 8px !important;
     width: 100% !important;
-    margin-top: 6px !important;
+    margin-top: 8px !important;
   }
 
   .about-action-buttons .btn {
     width: 100% !important;
-    font-size: 0.82rem !important;
+    font-size: 0.84rem !important;
     padding: 10px 14px !important;
     justify-content: center !important;
     text-align: center !important;
   }
 
-  .timeline-scale-header {
-    display: none !important;
-  }
-
-  .ribbon-timeline-wrapper {
-    margin-top: 8px !important;
-  }
-
-  /* 4 Milestone Nodes Formatted as a Sleek 2x2 Grid with Crystal Clear Titles */
-  .ribbon-timeline-track {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 8px !important;
-    padding: 0 !important;
-  }
-
-  .ribbon-timeline-track::before {
-    display: none !important;
-  }
-
-  .ribbon-timeline-item {
-    display: flex !important;
-    flex-direction: column !important;
-    padding: 10px 10px !important;
-    background: #FFFFFF !important;
-    border: 1px solid #E2E8F0 !important;
-    border-radius: var(--radius-md) !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.03) !important;
-    gap: 4px !important;
-  }
-
-  .ribbon-timeline-item.active {
-    border-color: var(--iit-crimson) !important;
-    background: #FFFDFD !important;
-    box-shadow: 0 2px 6px rgba(128, 0, 32, 0.08) !important;
-  }
-
-  .timeline-axis-col {
-    display: flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-    margin-bottom: 2px !important;
-  }
-
-  .axis-node-dot {
-    width: 7px !important;
-    height: 7px !important;
-  }
-
-  .axis-year-label {
-    font-size: 0.84rem !important;
-    font-weight: 800 !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-    background: transparent !important;
-    color: var(--iit-crimson) !important;
-  }
-
-  .timeline-content-col {
-    padding: 0 !important;
-  }
-
-  .timeline-ribbon-tag,
-  .timeline-ribbon-tag span {
-    font-size: 0.74rem !important;
-    font-weight: 700 !important;
-    color: #0F172A !important;
-    padding: 0 !important;
-    background: transparent !important;
-    border: none !important;
-    clip-path: none !important;
-    line-height: 1.3 !important;
-    display: block !important;
-  }
-
-  .timeline-ribbon-tag::after {
-    display: none !important;
-  }
-
-  .timeline-body-text {
+  /* Remove Milestone Timeline completely for Mobile version so story is clean */
+  .about-timeline-column {
     display: none !important;
   }
 
@@ -3810,14 +3733,226 @@ html, body {
     margin-bottom: 3px !important;
   }
 
-  /* Forms & Dispatch CTA */
+  /* ==========================================================================
+     7. INVITE FOR SESSION & WORKSHOP PORTAL (COMPACT CHIPS & COMPACT FORM)
+     ========================================================================== */
   .workshop-cta-card {
-    padding: 20px 14px !important;
+    padding: 18px 12px !important;
+    margin-top: 28px !important;
+    margin-bottom: 28px !important;
     border-radius: var(--radius-lg);
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
   }
 
+  .workshop-cta-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .workshop-cta-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .workshop-cta-content h3 {
+    font-size: 1.25rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 6px !important;
+  }
+
+  .workshop-cta-content p {
+    font-size: 0.8rem !important;
+    line-height: 1.45 !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* 9 Key Topics: Compact 2-Column Grid (Zero Horizontal Overflow) */
+  .workshop-topics-grid-9 {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+    margin-top: 8px !important;
+    margin-bottom: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .topic-chip-card {
+    padding: 6px 6px !important;
+    gap: 5px !important;
+    border-radius: 6px !important;
+    background: #FFFFFF !important;
+    border: 1px solid var(--border-light) !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
+    min-width: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .topic-chip-card i {
+    font-size: 0.74rem !important;
+    color: var(--iit-crimson) !important;
+    flex-shrink: 0 !important;
+  }
+
+  .topic-chip-card span {
+    font-size: 0.68rem !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+
+  .workshop-highlights-list {
+    margin-top: 10px !important;
+    gap: 5px !important;
+    width: 100% !important;
+  }
+
+  .highlight-item {
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+    gap: 6px !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+
+  .workshop-cta-form {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-top: 16px !important;
+    padding-top: 16px !important;
+    border-top: 1px dashed var(--border-light) !important;
+    box-sizing: border-box !important;
+  }
+
+  .workshop-cta-form h4 {
+    font-size: 1.15rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .workshop-cta-form p {
+    font-size: 0.78rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .workshop-cta-form .form-group {
+    margin-bottom: 8px !important;
+    width: 100% !important;
+  }
+
+  .workshop-cta-form .form-label {
+    font-size: 0.76rem !important;
+    margin-bottom: 3px !important;
+  }
+
+  .workshop-cta-form .form-control {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .workshop-cta-form textarea.form-control {
+    height: 55px !important;
+    min-height: 55px !important;
+  }
+
+  /* ==========================================================================
+     8. CONTACT & CONNECT: COMPACT, NEAT TILES & CLEAN COMPACT FORM
+     ========================================================================== */
+  #contact.section {
+    padding: 28px 0 !important;
+  }
+
+  .contact-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    width: 100% !important;
+  }
+
+  /* Compact Contact Info Tiles with Zero Awkward Wrapping */
+  .contact-info-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    width: 100% !important;
+  }
+
+  .contact-tile {
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    gap: 10px !important;
+    align-items: center !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .contact-tile .icon-wrap {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    font-size: 0.82rem !important;
+    border-radius: 6px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .contact-tile h5 {
+    font-size: 0.76rem !important;
+    margin-bottom: 1px !important;
+    line-height: 1.2 !important;
+  }
+
+  .contact-tile p,
+  .contact-tile a {
+    font-size: 0.74rem !important;
+    line-height: 1.3 !important;
+    word-break: break-word !important;
+  }
+
+  /* Compact Direct Message Form Panel */
   .contact-form-panel {
-    padding: 20px 14px !important;
+    padding: 16px 12px !important;
+    border-radius: var(--radius-lg) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .contact-form-panel h4 {
+    font-size: 1.15rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .contact-form-panel p {
+    font-size: 0.78rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  .contact-form-panel .form-group {
+    margin-bottom: 8px !important;
+    width: 100% !important;
+  }
+
+  .contact-form-panel .form-label {
+    font-size: 0.76rem !important;
+    margin-bottom: 3px !important;
+  }
+
+  .contact-form-panel .form-control {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .contact-form-panel textarea.form-control {
+    height: 55px !important;
+    min-height: 55px !important;
   }
 
   .dispatch-actions {

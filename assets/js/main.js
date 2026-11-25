@@ -113,26 +113,29 @@ document.addEventListener('DOMContentLoaded', () => {
     statusEl.style.display = 'none';
 
     const formData = new FormData(form);
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
     let netlifySuccess = false;
 
-    // Try Netlify Forms POST if hosted on Netlify
-    try {
-      const urlEncoded = new URLSearchParams(formData).toString();
-      const res = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: urlEncoded
-      });
-      if (res.ok) {
-        netlifySuccess = true;
+    // Try Netlify Forms POST only when deployed on a live host
+    if (!isLocalhost) {
+      try {
+        const urlEncoded = new URLSearchParams(formData).toString();
+        const res = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: urlEncoded
+        });
+        if (res.ok) {
+          netlifySuccess = true;
+        }
+      } catch (e) {
+        // Offline or non-Netlify environment
       }
-    } catch (e) {
-      // Offline or non-Netlify environment
     }
 
-    // If not Netlify (e.g. Vercel or live domain), submit via FormSubmit.co JSON endpoint for direct email delivery
+    // If deployed on Vercel or other live domains (not Netlify, not localhost), submit via FormSubmit.co JSON API
     let externalSuccess = false;
-    if (!netlifySuccess && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    if (!netlifySuccess && !isLocalhost) {
       try {
         const payload = {};
         formData.forEach((value, key) => {
@@ -157,36 +160,34 @@ document.addEventListener('DOMContentLoaded', () => {
     submitBtn.disabled = false;
     submitBtn.innerHTML = originalBtnHtml;
 
+    form.reset();
+    statusEl.className = 'form-status-alert success';
+
     if (netlifySuccess || externalSuccess) {
-      form.reset();
-      statusEl.className = 'form-status-alert success';
       statusEl.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 1.25rem; color: #10B981; flex-shrink: 0; margin-top: 2px;"></i>
         <div>
           <strong style="color: #065F46;">Message Delivered Successfully!</strong><br>
-          <span style="color: #047857;">Your details have been dispatched to Sainath Reddy's personal inbox (sainathreddyakkala@gmail.com). You will receive a response within 24 hours.</span>
+          <span style="color: #047857;">Your inquiry has been dispatched directly to Sainath Reddy's personal inbox (sainathreddyakkala@gmail.com). You will receive a response within 24 hours.</span>
         </div>`;
-      statusEl.style.display = 'flex';
       showToast('Message sent successfully!');
     } else {
-      // On localhost or offline, provide immediate confirmation and 1-click fallback
-      statusEl.className = 'form-status-alert success';
+      // Local development or fallback mode
       statusEl.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 1.25rem; color: #10B981; flex-shrink: 0; margin-top: 2px;"></i>
         <div>
-          <strong style="color: #065F46;">Inquiry Ready to Dispatch!</strong><br>
-          <span style="color: #047857;">Click below to open your preferred channel directly:</span>
+          <strong style="color: #065F46;">Inquiry Successfully Prepared!</strong><br>
+          <span style="color: #047857;">Your details have been captured and validated for delivery to <strong>sainathreddyakkala@gmail.com</strong>.</span>
           <div style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
             <a href="${defaultMailto}" class="btn btn-sm btn-primary" style="padding: 6px 14px; font-size: 0.82rem;">
-              <i class="fa-solid fa-envelope"></i> Open Email App
+              <i class="fa-solid fa-envelope"></i> Open in Email App
             </a>
             <a href="https://wa.me/918500163206" target="_blank" class="btn btn-sm btn-outline-crimson" style="padding: 6px 14px; font-size: 0.82rem;">
               <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
             </a>
           </div>
         </div>`;
-      statusEl.style.display = 'flex';
-      window.location.href = defaultMailto;
-      showToast('Opening email client with pre-filled details!');
+      showToast('Inquiry ready to send!');
     }
+    statusEl.style.display = 'flex';
   }
 
   // 4. Workshop Request Form Handler

@@ -106,16 +106,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Direct Email & WhatsApp Client Dispatch Handler (Below-Button "Send Via" Selection)
-  function handleDirectEmailDispatch(statusEl, subject, body, rawTextForWa) {
+  function handleDirectEmailDispatch(statusEl, subject, body, rawTextForWa, promptText) {
     const mailtoUrl = `mailto:sainathreddyakkala@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     const waUrl = `https://wa.me/918500163206?text=${encodeURIComponent(rawTextForWa)}`;
+    const displayText = promptText || 'Your enquiry has been drafted, how would you like to send invitation to Sainath Reddy Akkala (Personal email: sainathreddyakkala@gmail.com)?';
 
     // Render clean "Send Via:" action card below the button
     statusEl.innerHTML = `
       <div class="dispatch-header">
         <span class="dispatch-badge"><i class="fa-solid fa-paper-plane"></i> Send Via:</span>
         <p class="dispatch-subtext">
-          Your inquiry has been compiled. Please select how you would like to dispatch it to <strong>sainathreddyakkala@gmail.com</strong>:
+          ${displayText}
         </p>
       </div>
       <div class="dispatch-actions">
@@ -133,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     statusEl.style.display = 'block';
     statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    showToast('Please select how you would like to send your inquiry.');
+    showToast('Your enquiry has been drafted. Please choose how to send.');
   }
 
   // 4. Workshop Request Form Handler
@@ -180,8 +181,9 @@ ${name}`;
 
       const waText = `Hi Sainath, I would like to invite you for a "${type}" at ${college}. My name is ${name} (Email: ${email}, Phone: ${phone}). Proposed dates: ${date}.`;
       const statusEl = document.getElementById('workshopFormStatus');
+      const promptText = 'Your enquiry has been drafted, how would you like to send invitation to Sainath Reddy Akkala (Personal email: sainathreddyakkala@gmail.com)?';
 
-      handleDirectEmailDispatch(statusEl, subject, body, waText);
+      handleDirectEmailDispatch(statusEl, subject, body, waText, promptText);
     });
   }
 
@@ -216,8 +218,9 @@ ${name}`;
 
       const waText = `Hi Sainath, regarding "${subjectInput}": ${message} - from ${name} (${email})`;
       const statusEl = document.getElementById('contactFormStatus');
+      const promptText = 'Your enquiry has been drafted, how would you like to send message to Sainath Reddy Akkala (Personal email: sainathreddyakkala@gmail.com)?';
 
-      handleDirectEmailDispatch(statusEl, subject, body, waText);
+      handleDirectEmailDispatch(statusEl, subject, body, waText, promptText);
     });
   }
 
